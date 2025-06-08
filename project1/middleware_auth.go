@@ -8,8 +8,10 @@ import (
 	"github.com/chkev05/Go-Projects/project1/internal/database"
 )
 
+// a type for any function that requires authentication
 type authhandler func(http.ResponseWriter, *http.Request, database.User)
 
+// function to reduce reptitive code for user access
 func (apiCfg *apiConfig) middlewareAuth(next authhandler) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		apiKey, err := auth.GetAPIKey(r.Header)

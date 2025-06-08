@@ -12,6 +12,7 @@ import (
 	"github.com/chkev05/Go-Projects/project1/internal/database"
 )
 
+// handlerCreateFeedFollow creates a new feed follow for the user.
 func (apiCfg apiConfig) handlerCreateFeedFollow(w http.ResponseWriter, r *http.Request, user database.User) {
 	type parameters struct {
 		FeedID uuid.UUID `json:"feed_id"`
@@ -39,6 +40,7 @@ func (apiCfg apiConfig) handlerCreateFeedFollow(w http.ResponseWriter, r *http.R
 	respondWithJSON(w, 201, databaseFeedFollowToFeedFollow(feedFollow))
 }
 
+// handlerGetFeedFollows retrieves all feed follows for the user.
 func (apiCfg apiConfig) handlerGetFeedFollows(w http.ResponseWriter, r *http.Request, user database.User) {
 
 	feedFollows, err := apiCfg.DB.GetFeedFollows(r.Context(), user.ID)
@@ -50,6 +52,7 @@ func (apiCfg apiConfig) handlerGetFeedFollows(w http.ResponseWriter, r *http.Req
 	respondWithJSON(w, 201, databaseFeedFollowsToFeedFollows(feedFollows))
 }
 
+// handlerDeleteFeedFollow delete follow for user.
 func (apiCfg apiConfig) handlerDeleteFeedFollow(w http.ResponseWriter, r *http.Request, user database.User) {
 	feedFollowIDStr := chi.URLParam(r, "feedFollowID")
 	feedFollowID, err := uuid.Parse(feedFollowIDStr)

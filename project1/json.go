@@ -6,6 +6,7 @@ import (
 	"net/http"
 )
 
+// Error response function to handle errors in a consistent way.
 func respondWithError(w http.ResponseWriter, status int, msg string) {
 	if status > 499 {
 		log.Printf("Server error: %s", msg)
@@ -18,6 +19,7 @@ func respondWithError(w http.ResponseWriter, status int, msg string) {
 	respondWithJSON(w, status, errResponse{Error: msg})
 }
 
+// respondWithJSON is a utility function to send JSON responses gets passed in a model for the data field.
 func respondWithJSON(w http.ResponseWriter, status int, data interface{}) {
 	dat, err := json.Marshal(data)
 	if err != nil {
